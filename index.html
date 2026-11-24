@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crypto Pro — Trading Simulator</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b0e11;color:#eaecef;font-family:Arial,sans-serif}
+header{background:#181a20;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;border-bottom:1px solid #292d35}
+.logo{font-size:23px;font-weight:700;color:#f0b90b}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a{color:#eaecef;text-decoration:none;font-size:14px}
+main{max-width:1100px;margin:auto;padding:22px 16px}
+.notice{background:#30291b;color:#f0b90b;padding:13px;border-radius:8px;font-size:13px}
+h2{font-size:21px;margin:28px 0 15px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px}
+.card{background:#181a20;border:1px solid #292d35;padding:18px;border-radius:12px;min-width:0}
+.muted{color:#848e9c;font-size:13px}
+.balance{font-size:26px;font-weight:bold;margin:12px 0}
+.green{color:#0ecb81}.red{color:#f6465d}.yellow{color:#f0b90b}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:420px}
+th,td{padding:14px 9px;text-align:left;border-bottom:1px solid #292d35;font-size:14px}
+th{color:#848e9c}
+.panel{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+input,select{width:100%;padding:13px;margin:12px 0;background:#0b0e11;color:white;border:1px solid #393e48;border-radius:6px}
+button{padding:12px 20px;border:0;border-radius:6px;font-weight:bold;cursor:pointer}
+.buy{background:#0ecb81;color:#071b12}.sell{background:#f6465d;color:white}
+footer{text-align:center;color:#848e9c;padding:25px;font-size:12px}
+@media(max-width:600px){.panel{grid-template-columns:1fr}nav{gap:11px}nav a{font-size:12px}.balance{font-size:23px}th,td{font-size:12px;padding:12px 5px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">CRYPTO PRO</div>
+  <nav>
+    <a href="#home">Home</a><a href="#markets">Markets</a>
+    <a href="#trade">Trade</a><a href="#wallet">Wallet</a>
+  </nav>
+</header>
+
+<main id="home">
+  <div class="notice">SIMULATOR — Virtual funds only. No real deposits, withdrawals, or trading.</div>
+
+  <h2>Dashboard</h2>
+  <div class="cards">
+    <section class="card"><div class="muted">Total Balance</div><div class="balance" id="balance">$10,000.00</div><div class="green">Virtual account</div></section>
+    <section class="card"><div class="muted">Today's P/L</div><div class="balance green">+$250.00</div><div class="muted">Illustrative sample</div></section>
+    <section class="card"><div class="muted">Available USDT</div><div class="balance" id="usdt">10,000.00</div><div class="muted">Virtual balance</div></section>
+  </div>
+
+  <h2 id="markets">Market Overview</h2>
+  <section class="card table-wrap">
+    <table>
+      <thead><tr><th>Asset</th><th>Sample Price</th><th>24h Change</th></tr></thead>
+      <tbody>
+        <tr><td>₿ Bitcoin (BTC)</td><td>$67,500.00</td><td class="green">+2.45%</td></tr>
+        <tr><td>◆ Ethereum (ETH)</td><td>$3,500.00</td><td class="green">+1.80%</td></tr>
+        <tr><td>◆ BNB</td><td>$600.00</td><td class="red">-0.75%</td></tr>
+        <tr><td>◎ Solana (SOL)</td><td>$150.00</td><td class="green">+3.20%</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2 id="trade">Trading Simulator</h2>
+  <div class="panel">
+    <section class="card">
+      <h2 class="green">Buy Crypto</h2>
+      <label class="muted" for="buyCoin">Select coin</label>
+      <select id="buyCoin"><option value="BTC">Bitcoin (BTC)</option><option value="ETH">Ethereum (ETH)</option><option value="BNB">BNB</option><option value="SOL">Solana (SOL)</option></select>
+      <label class="muted" for="buyAmount">Amount in virtual USDT</label>
+      <input id="buyAmount" type="number" min="0.01" ste…
