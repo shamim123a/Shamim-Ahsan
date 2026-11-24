@@ -1,73 +1,80 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Binance — Trading buy/sell</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Binance Style Pro — Virtual Trading Simulator</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#0b0e11;color:#eaecef;font-family:Arial,sans-serif}
-header{background:#181a20;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;border-bottom:1px solid #292d35}
-.logo{font-size:23px;font-weight:700;color:#f0b90b}
-nav{display:flex;gap:18px;flex-wrap:wrap}
-nav a{color:#eaecef;text-decoration:none;font-size:14px}
-main{max-width:1100px;margin:auto;padding:22px 16px}
-.notice{background:#30291b;color:#f0b90b;padding:13px;border-radius:8px;font-size:13px}
-h2{font-size:21px;margin:28px 0 15px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px}
-.card{background:#181a20;border:1px solid #292d35;padding:18px;border-radius:12px;min-width:0}
-.muted{color:#848e9c;font-size:13px}
-.balance{font-size:26px;font-weight:bold;margin:12px 0}
-.green{color:#0ecb81}.red{color:#f6465d}.yellow{color:#f0b90b}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:420px}
-th,td{padding:14px 9px;text-align:left;border-bottom:1px solid #292d35;font-size:14px}
-th{color:#848e9c}
-.panel{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-input,select{width:100%;padding:13px;margin:12px 0;background:#0b0e11;color:white;border:1px solid #393e48;border-radius:6px}
-button{padding:12px 20px;border:0;border-radius:6px;font-weight:bold;cursor:pointer}
-.buy{background:#0ecb81;color:#071b12}.sell{background:#f6465d;color:white}
-footer{text-align:center;color:#848e9c;padding:25px;font-size:12px}
-@media(max-width:600px){.panel{grid-template-columns:1fr}nav{gap:11px}nav a{font-size:12px}.balance{font-size:23px}th,td{font-size:12px;padding:12px 5px}}
+:root{--bg:#0b0e11;--panel:#181a20;--panel2:#20242b;--line:#2b3139;--text:#eaecef;--muted:#848e9c;--yellow:#f0b90b;--green:#0ecb81;--red:#f6465d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Arial,Helvetica,sans-serif}
+header{height:66px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 5%;gap:16px}
+.brand{font-weight:800;font-size:20px;letter-spacing:.3px}.brand span{color:var(--yellow)}.tag{font-size:10px;color:var(--yellow);border:1px solid #66500c;padding:3px 7px;border-radius:4px;margin-left:8px}
+nav{display:flex;gap:22px;color:var(--muted)}nav b{color:var(--yellow)}
+main{max-width:1180px;margin:28px auto;padding:0 18px}.notice{background:#282314;border:1px solid #594714;color:#e8c75a;border-radius:8px;padding:11px 14px;margin-bottom:20px;font-size:12px}
+h1{font-size:25px;margin:0 0 5px}.sub{color:var(--muted);margin-bottom:22px}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+.label{color:var(--muted);font-size:12px}.balance{font-size:32px;font-weight:700;margin:7px 0}.positive{color:var(--green)}.negative{color:var(--red)}
+.actions{display:flex;gap:10px;margin-top:16px}.btn{border:0;border-radius:6px;padding:11px 20px;font-weight:700;cursor:pointer}.buy{background:var(--green);color:#07150f}.sell{background:var(--red);color:white}.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+.section-title{font-size:17px;margin:0 0 15px}.market{margin-top:18px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:570px}th,td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:500;font-size:12px}td:last-child,th:last-child{text-align:right}.coin{font-weight:700}.symbol{color:var(--muted);font-size:12px;margin-left:7px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}input,select{width:100%;padding:11px;border:1px solid var(--line);border-radius:6px;background:#0b0e11;color:var(--text);outline:none}input:focus,select:focus{border-color:var(--yellow)}
+.small{color:var(--muted);font-size:12px}.wallet-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line)}.wallet-row:last-child{border:0}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:28px 10px}
+@media(max-width:760px){header{padding:0 16px}nav{display:none}.grid{grid-template-columns:1fr}.balance{font-size:27px}.card{padding:16px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">Binance</div>
-  <nav>
-    <a href="#home">Home</a><a href="#markets">Markets</a>
-    <a href="#trade">Trade</a><a href="#wallet">Wallet</a>
-  </nav>
+  <div><span class="brand">BINANCE <span>STYLE PRO</span></span><span class="tag">SIMULATOR</span></div>
+  <nav><b>Dashboard</b><span>Markets</span><span>Trade</span><span>Wallet</span></nav>
 </header>
-
-<main id="home">
-  <div class="notice">BYU SELL deposits, withdrawals, or trading.</div>
-
-  <h2>Dashboard</h2>
-  <div class="cards">
-    <section class="card"><div class="muted">Total Balance</div><div class="balance" id="balance">$10,000.00</div><div class="green">Virtual account</div></section>
-    <section class="card"><div class="muted">Today's P/L</div><div class="balance green">+$250.00</div><div class="muted">Illustrative sample</div></section>
-    <section class="card"><div class="muted">Available USDT</div><div class="balance" id="usdt">10,000.00</div><div class="muted">Virtual balance</div></section>
-  </div>
-
-  <h2 id="markets">Market Overview</h2>
-  <section class="card table-wrap">
-    <table>
-      <thead><tr><th>Asset</th><th>Sample Price</th><th>24h Change</th></tr></thead>
-      <tbody>
-        <tr><td>₿ Bitcoin (BTC)</td><td>$67,500.00</td><td class="green">+2.45%</td></tr>
-        <tr><td>◆ Ethereum (ETH)</td><td>$3,500.00</td><td class="green">+1.80%</td></tr>
-        <tr><td>◆ BNB</td><td>$600.00</td><td class="red">-0.75%</td></tr>
-        <tr><td>◎ Solana (SOL)</td><td>$150.00</td><td class="green">+3.20%</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <h2 id="trade">Trading Simulator</h2>
-  <div class="panel">
+<main>
+  <div class="notice"><strong>SIMULATOR ONLY:</strong> This is an independent practice app. It is not Binance, is not affiliated with Binance, and does not connect to real markets, wallets, or payments. All funds and trades are virtual.</div>
+  <h1>Dashboard</h1><div class="sub">Practice trading with virtual funds.</div>
+  <div class="grid">
     <section class="card">
-      <h2 class="green">Buy Crypto</h2>
-      <label class="muted" for="buyCoin">Select coin</label>
-      <select id="buyCoin"><option value="BTC">Bitcoin (BTC)</option><option value="ETH">Ethereum (ETH)</option><option value="BNB">BNB</option><option value="SOL">Solana (SOL)</option></select>
-      <label class="muted" for="buyAmount">Amount in virtual USDT</label>
-      <input id="buyAmount" type="number" min="0.01" ste…
+      <div class="label">Estimated virtual balance</div>
+      <div class="balance" id="totalBalance">$10,000.00</div>
+      <div class="small">Virtual USD balance and sample coin holdings</div>
+      <div class="actions"><button class="btn buy" onclick="setSide('buy')">Buy</button><button class="btn sell" onclick="setSide('sell')">Sell</button></div>
+      <div style="margin-top:22px">
+        <h2 class="section-title">Virtual wallet</h2>
+        <div id="wallet"></div>
+      </div>
+    </section>
+    <section class="card" id="trade">
+      <h2 class="section-title">Place a practice order</h2>
+      <div class="form-row"><div><label>Order type</label><select id="side"><option value="buy">Buy</option><option value="sell">Sell</option></select></div><div><label>Asset</label><select id="asset"><option value="BTC">Bitcoin (BTC)</option><option value="ETH">Ethereum (ETH)</option><option value="BNB">BNB</option><option value="SOL">Solana (SOL)</option><option value="XRP">XRP</option></select></div></div>
+      <div><label>Amount in USD</label><input id="amount" type="number" min="1" step="0.01" placeholder="e.g. 100"></div>
+      <p class="small" id="estimate">Enter an amount to see the estimated coin quantity.</p>
+      <button class="btn buy" style="width:100%;margin-top:8px" onclick="trade()">Confirm virtual trade</button>
+      <p class="small" id="message" aria-live="polite"></p>
+    </section>
+  </div>
+  <section class="card market">
+    <h2 class="section-title">Markets <span class="small">— sample prices, manually editable in code</span></h2>
+    <div class="table-wrap"><table><thead><tr><th>Asset</th><th>Last price</th><th>24h change</th><th>Virtual holding</th></tr></thead><tbody id="markets"></tbody></table></div>
+  </section>
+  <section class="card market">
+    <h2 class="section-title">Practice trade history</h2>
+    <div class="table-wrap"><table><thead><tr><th>Time</th><th>Side</th><th>Asset</th><th>USD value</th><th>Quantity</th></tr></thead><tbody id="history"><tr><td colspan="5" class="small">No practice trades yet.</td></tr></tbody></table></div>
+  </section>
+</main>
+<footer>Independent virtual trading practice page • No real orders, deposits, withdrawals, or live prices.</footer>
+<script>
+// EDIT SAMPLE PRICES HERE. These are fictional/demo values, not live market prices.
+const assets = {
+ BTC:{name:"Bitcoin",price:68000,change:1.42,holding:0.05},
+ ETH:{name:"Ethereum",price:3500,change:0.86,holding:0.5},
+ BNB:{name:"BNB",price:590,change:-0.34,holding:2},
+ SOL:{name:"Solana",price:165,change:2.15,holding:3},
+ XRP:{name:"XRP",price:0.62,change:-1.12,holding:100}
+};
+// EDIT STARTING VIRTUAL USD BALANCE HERE.
+let usdBalance = 2500;
+let history = [];
+const money = n => "$"+Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+function total(){return usdBalance+Object.values(assets).reduce((s,a)=>s+a.price*a.holding,0)}
+function render(){
+ document.getElementById("totalBalance").textContent=money(total());
+ document.getElementById("wallet").innerHTML=<div class="wallet-row"><span>USD</span><strong>${money(usdBalance)}</strong></div>+Object.entries(assets).map(([k,a])=><div class="wallet-row"><span>${k}</span><strong>${a.holding.toFixed(6)} <span class="small">(${money(a.holding*a.price)})</span></strong></div>).join("");
+ document.getElementById("markets").innerHTML=Object.entries(assets).map(([k,a])…
