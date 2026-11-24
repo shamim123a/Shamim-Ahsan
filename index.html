@@ -33,6 +33,13 @@ input,select{width:100%;padding:13px;margin:7px 0 13px;background:#262a33;color:
 .smallbtn{background:#30343b;color:white;border:0;border-radius:6px;padding:8px}
 </style>
 </head>
+  <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js");
+  });
+}
+</script>
 <body>
 
 <header>
