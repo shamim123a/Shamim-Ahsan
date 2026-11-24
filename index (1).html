@@ -1,110 +1,172 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b0e11">
-<meta name="description" content="Independent virtual crypto trading practice simulator">
+<title>SHAMIM PRO</title>
 <link rel="manifest" href="./manifest.json">
-<link rel="icon" href="./icon.png">
-<link rel="apple-touch-icon" href="./icon.png">
-<title>Crypto Practice Pro</title>
 <style>
-:root{--bg:#0b0e11;--panel:#181a20;--line:#2b3139;--text:#eaecef;--muted:#848e9c;--gold:#f0b90b;--green:#0ecb81;--red:#f6465d}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px Arial,sans-serif}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px max(16px,calc((100% - 1120px)/2));border-bottom:1px solid var(--line);position:sticky;top:0;background:#0b0e11;z-index:2}
-.brand{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800}.brand img{width:38px;height:38px;border-radius:10px;object-fit:cover}.brand span{color:var(--gold)}
-button,.file-label{border:0;border-radius:7px;padding:10px 13px;font-weight:700;cursor:pointer;background:var(--gold);color:#17130a}
-.secondary{background:#252a32;color:var(--text);border:1px solid var(--line)}.hidden{display:none}
-main{max-width:1120px;margin:22px auto;padding:0 14px}.notice{background:#282314;border:1px solid #594714;color:#e8c75a;padding:11px;border-radius:8px;font-size:12px;line-height:1.5;margin-bottom:18px}
-h1{font-size:24px;margin:0 0 5px}.muted,.small{color:var(--muted)}.small{font-size:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:17px;margin-top:14px}
-.label{font-size:12px;color:var(--muted)}.balance{font-size:30px;font-weight:800;margin:8px 0}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.wallet-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}.wallet-row:last-child{border:0}
-input,select{background:#0b0e11;color:var(--text);border:1px solid var(--line);border-radius:7px;padding:11px;width:100%;margin:5px 0 12px}label{display:block;color:var(--muted);font-size:12px}
-.buy{background:var(--green);color:#04150d}.sell{background:var(--red);color:white}.green{color:var(--green)}.red{color:var(--red)}
-.chart-head{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.chart{height:230px;width:100%;display:block;margin-top:10px}
-table{border-collapse:collapse;width:100%;min-width:500px}th,td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:12px;font-weight:500}.scroll{overflow:auto}
-footer{text-align:center;color:var(--muted);font-size:11px;padding:24px}
-@media(max-width:700px){.grid{grid-template-columns:1fr}header{padding:10px 12px}.brand{font-size:15px}.balance{font-size:26px}.chart{height:190px}.card{padding:14px}}
+*{box-sizing:border-box}
+body{margin:0;background:#0b0e11;color:#fff;font-family:Arial}
+header{background:#181a20;padding:18px;display:flex;justify-content:space-between}
+.logo{color:#f0b90b;font-size:23px;font-weight:bold}
+nav{display:flex;justify-content:space-around;background:#181a20;position:sticky;top:0}
+nav button{background:transparent;color:white;padding:13px 7px;font-size:12px}
+button{background:#f0b90b;color:#111;border:0;border-radius:7px;padding:12px;font-weight:bold}
+main{padding:15px}
+.card{background:#181a20;padding:18px;border-radius:12px;margin-bottom:15px}
+.page{display:none}.page.active{display:block}
+.muted{color:#929aa5;font-size:13px}
+.balance{font-size:30px;margin:14px 0}
+input{width:100%;padding:13px;margin:8px 0;background:#262a33;color:white;border:1px solid #444;border-radius:7px}
+.coin{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #30343b}
+h2{font-size:19px}
 </style>
 </head>
 <body>
 <header>
- <div class="brand"><img id="appLogo" src="./icon.png" alt="App logo"><div>CRYPTO <span>PRACTICE PRO</span></div></div>
- <button id="installBtn" class="hidden">Install App</button>
+<div class="logo" id="appName">SHAMIM PRO</div>
+<div id="appLogo" style="color:#f0b90b;font-size:25px">◆</div>
 </header>
+<nav>
+<button onclick="page('home')">Home</button>
+<button onclick="page('markets')">Markets</button>
+<button onclick="page('trade')">Trade</button>
+<button onclick="page('wallet')">Wallet</button>
+<button onclick="page('settings')">Settings</button>
+</nav>
 <main>
- <div class="notice"><b>VIRTUAL SIMULATOR ONLY:</b> This is an independent practice app, not Binance and not affiliated with Binance. Sample prices and trades are fictional. No real crypto, wallets, deposits, withdrawals, or payments.</div>
- <h1>Trading Dashboard</h1><div class="small">Practice with virtual funds. Prices and charts are sample data.</div>
-
- <section class="card">
-  <div class="chart-head"><div><div class="label">Sample price chart</div><select id="chartAsset" style="width:auto"><option>BTC</option><option>ETH</option><option>BNB</option><option>SOL</option><option>XRP</option></select><b id="chartPrice"></b></div><div class="row"><button class="secondary range active" data-range="1H">1H</button><button class="secondary range" data-range="1D">1D</button><button class="secondary range" data-range="1W">1W</button></div></div>
-  <canvas class="chart" id="chart"></canvas><div class="small">Illustrative chart only — not live market data.</div>
- </section>
-
- <div class="grid">
-  <section class="card"><div class="label">Estimated virtual balance</div><div class="balance" id="balance">$10,000.00</div><div class="small">Virtual wallet</div><div id="wallet"></div></section>
-  <section class="card"><h3>Practice order</h3>
-   <label>Buy or sell</label><select id="side"><option value="buy">Buy</option><option value="sell">Sell</option></select>
-   <label>Coin</label><select id="coin"><option>BTC</option><option>ETH</option><option>BNB</option><option>SOL</option><option>XRP</option></select>
-   <label>Amount in virtual USD</label><input id="amount" type="number" min="0.01" step="0.01" placeholder="100">
-   <div id="estimate" class="small">Enter amount to calculate quantity.</div><br><button id="tradeBtn">Confirm virtual trade</button><p id="message" class="small" aria-live="polite"></p>
-  </section>
- </div>
-
- <section class="card"><h3>Market prices</h3><div class="scroll"><table><thead><tr><th>Coin</th><th>Sample price</th><th>Change</th><th>Your holding</th></tr></thead><tbody id="markets"></tbody></table></div></section>
- <section class="card"><h3>Trade history</h3><div class="scroll"><table><thead><tr><th>Time</th><th>Side</th><th>Coin</th><th>USD</th><th>Quantity</th></tr></thead><tbody id="history"><tr><td colspan="5">No trades yet.</td></tr></tbody></table></div></section>
-
- <section class="card"><h3>Change app logo</h3><p class="small">Choose an image from your phone to use as the logo on this device. This does not change the installed app icon automatically.</p>
-  <label for="logoFile">Choose logo image</label><input id="logoFile" type="file" accept="image/*"><button id="resetLogo" class="secondary">Restore default logo</button>
- </section>
- <section class="card"><h3>Install on your phone</h3><p class="small">Open this website in Chrome. If available, tap “Install App” above or use Chrome menu → Install app / Add to Home screen.</p></section>
+<section id="home" class="page active">
+<div class="card">
+<div class="muted">Total Estimated Balance</div>
+<div class="balance" id="homeBalance">$10,000.00</div>
+<div class="muted">Personal Simulator</div>
+</div>
+<div class="card">
+<h2>My Assets</h2>
+<div id="homeCoins"></div>
+</div>
+</section>
+<section id="markets" class="page">
+<h2>Markets</h2>
+<div class="card" id="marketList"></div>
+</section>
+<section id="trade" class="page">
+<h2>Trade Simulator</h2>
+<div class="card">
+<label>Coin Name</label>
+<input id="tradeCoin" placeholder="BTC">
+<label>Amount USD</label>
+<input id="tradeAmount" type="number" placeholder="100">
+<button onclick="trade()">Save Trade</button>
+<p class="muted">Simulation only. No real transactions.</p>
+</div>
+</section>
+<section id="wallet" class="page">
+<h2>My Wallet</h2>
+<div class="card">
+<div class="muted">Available Balance</div>
+<div class="balance" id="walletBalance"></div>
+<label>Edit Balance USD</label>
+<input id="balanceInput" type="number">
+<button onclick="saveBalance()">Update Balance</button>
+</div>
+</section>
+<section id="settings" class="page">
+<h2>Settings</h2>
+<div class="card">
+<h2>Change App Name & Logo</h2>
+<input id="nameInput" placeholder="App Name">
+<input id="logoInput" placeholder="Logo">
+<button onclick="saveBrand()">Save Changes</button>
+</div>
+<div class="card">
+<h2>Add or Edit Coin</h2>
+<input id="coinName" placeholder="Coin Name">
+<input id="coinPrice" type="number" placeholder="Coin Price USD">
+<button onclick="addCoin()">Save Coin</button>
+<div id="settingsCoins"></div>
+</div>
+</section>
 </main>
-<footer>Independent virtual practice simulator • Not a real exchange or financial service.</footer>
 <script>
-const data={BTC:{price:68000,change:1.42,qty:.05},ETH:{price:3500,change:.86,qty:.5},BNB:{price:590,change:-.34,qty:2},SOL:{price:165,change:2.15,qty:3},XRP:{price:.62,change:-1.12,qty:100}};
-let cash=2500, trades=[];
-const $=id=>document.getElementById(id),fmt=n=>"$"+Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
-function total(){return cash+Object.values(data).reduce((s,c)=>s+c.price*c.qty,0)}
+let balance=Number(localStorage.getItem('balance')||10000);
+let coins=JSON.parse(localStorage.getItem('coins')||'[{"name":"BTC","price":95000},{"name":"ETH","price":3200},{"name":"BNB","price":600},{"name":"SOL","price":180}]');
+
+function page(id){
+document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+function money(n){
+return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function safe(s){
+return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
 function render(){
- $("balance").textContent=fmt(total());
- $("wallet").innerHTML='<div class="wallet-row"><span>USD</span><b>'+fmt(cash)+'</b></div>'+Object.entries(data).map(([k,v])=>`<div class="wallet-row"><span>${k}</span><b>${v.qty.toFixed(6)} <span class="small">(${fmt(v.qty*v.price)})</span></b></div>`).join("");
- $("markets").innerHTML=Object.entries(data).map(([k,v])=>`<tr><td><b>${k}</b></td><td>${fmt(v.price)}</td><td class="${v.change>=0?'green':'red'}">${v.change>=0?'+':''}${v.change}%</td><td>${v.qty.toFixed(6)}</td></tr>`).join("");
- $("history").innerHTML=trades.length?trades.slice().reverse().map(t=>`<tr><td>${t.time}</td><td class="${t.side==='buy'?'green':'red'}">${t.side.toUpperCase()}</td><td>${t.coin}</td><td>${fmt(t.usd)}</td><td>${t.qty.toFixed(8)}</td></tr>`).join(""):'<tr><td colspan="5">No trades yet.</td></tr>';
- drawChart();
+document.getElementById('homeBalance').textContent=money(balance);
+document.getElementById('walletBalance').textContent=money(balance);
+document.getElementById('balanceInput').value=balance;
+let html=coins.map(c=>'<div class="coin"><b>'+safe(c.name)+'</b><span>'+money(c.price)+'</span></div>').join('');
+document.getElementById('homeCoins').innerHTML=html;
+document.getElementById('marketList').innerHTML=html;
+document.getElementById('settingsCoins').innerHTML=html;
+}
+function saveBalance(){
+let n=Number(document.getElementById('balanceInput').value);
+if(!Number.isFinite(n)||n<0)return alert('Invalid balance');
+balance=n;
+localStorage.setItem('balance',balance);
+render();
+alert('Balance updated');
+}
+function addCoin(){
+let name=document.getElementById('coinName').value.trim().toUpperCase();
+let price=Number(document.getElementById('coinPrice').value);
+if(!name||!Number.isFinite(price)||price<=0)return alert('Enter valid details');
+let old=coins.find(c=>c.name===name);
+if(old)old.price=price;
+else coins.push({name,price});
+localStorage.setItem('coins',JSON.stringify(coins));
+render();
+document.getElementById('coinName').value='';
+document.getElementById('coinPrice').value='';
+alert('Coin saved');
+}
+function saveBrand(){
+let name=document.getElementById('nameInput').value.trim();
+let logo=document.getElementById('logoInput').value.trim();
+if(name){
+localStorage.setItem('appName',name);
+document.getElementById('appName').textContent=name;
+document.title=name;
+}
+if(logo){
+localStorage.setItem('appLogo',logo);
+document.getElementById('appLogo').textContent=logo;
+}
+alert('Saved');
 }
 function trade(){
- const side=$("side").value,coin=$("coin").value,usd=Number($("amount").value),asset=data[coin],qty=usd/asset.price;
- if(!Number.isFinite(usd)||usd<=0){$("message").textContent="Enter a valid amount.";return}
- if(side==="buy"){if(usd>cash){$("message").textContent="Insufficient virtual USD.";return}cash-=usd;asset.qty+=qty}
- else{if(qty>asset.qty){$("message").textContent="Not enough virtual "+coin+".";return}asset.qty-=qty;cash+=usd}
- trades.push({time:new Date().toLocaleString(),side,coin,usd,qty});$("message").textContent="Virtual trade completed."; $("amount").value="";render();
-}
-$("tradeBtn").onclick=trade;
-$("amount").oninput=()=>{let n=Number($("amount").value),c=$("coin").value;$("estimate").textContent=n>0?`Estimated: ${(n/data[c].price).toFixed(8)} ${c}`:"Enter amount to calculate quantity."};
-$("coin").onchange=()=>$("amount").dispatchEvent(new Event("input"));
-let range="1H";
-function drawChart(){
- const cv=$("chart"),r=cv.getBoundingClientRect(),dpr=devicePixelRatio||1;cv.width=Math.max(1,r.width*dpr);cv.height=Math.max(1,r.height*dpr);
- const ctx=cv.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);const w=r.width,h=r.height,coin=$("chartAsset").value,base=data[coin].price;
- $("chartPrice").textContent=fmt(base);
- ctx.clearRect(0,0,w,h);ctx.strokeStyle="#2b3139";ctx.lineWidth=1;
- for(let i=1;i<5;i++){let y=i*h/5;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
- let seed=coin.split("").reduce((a,c)=>a+c.charCodeAt(0),0)+(range==="1D"?20:range==="1W"?40:0),vals=[];
- for(let i=0;i<60;i++){seed=(seed*9301+49297)%233280;let noise=(seed/233280-.5)*.035;vals.push(base*(1+noise+Math.sin(i/6)*.012))}
- const min=Math.min(...vals)*.99,max=Math.max(...vals)*1.01;
- ctx.beginPath();vals.forEach((v,i)=>{let x=i*w/(vals.length-1),y=h-((v-min)/(max-min))*h*.82-h*.08;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});
- ctx.strokeStyle="#f0b90b";ctx.lineWidth=2.2;ctx.stroke();
- ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.closePath();ctx.fillStyle="rgba(240,185,11,.08)";ctx.fill();
-}
-$("chartAsset").onchange=drawChart;
-document.querySelectorAll(".range").forEach(b=>b.onclick=()=>{document.querySelectorAll(".range").forEach(x=>x.classList.remove("active"));b.classList.add("active");range=b.dataset.range;drawChart()});
-$("logoFile").onchange=e=>{let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{localStorage.setItem("cpp-custom-logo",reader.result);$("appLogo").src=reader.result};reader.readAsDataURL(f)};
-const savedLogo=localStorage.getItem("cpp-custom-logo");if(savedLogo)$("appLogo").src=savedLogo;
-$("resetLogo").onclick=()=>{localStorage.removeItem("cpp-custom-logo");$("appLogo").src="./icon.png";$("logoFile").value=""};
-let installPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installPrompt=e;$("installBtn").classList.remove("hidden")});
-$("installBtn").onclick=async()=>{if(!installPrompt){alert("Use Chrome menu → Install app or Add to Home screen.");return}installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$("installBtn").classList.add("hidden")};
-if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
-window.addEventListener("resize",drawChart);
+let coin=document.getElementById('tradeCoin').value.trim();
+let amount=Number(document.getElementById('tradeAmount').value);
+if(!coin||!Number.isFinite(amount)||amount<=0)return alert('Invalid details');
+if(amount>balance)return alert('Insufficient balance');
+balance-=amount;
+localStorage.setItem('balance',balance);
 render();
+alert('Simulation saved');
+}
+document.getElementById('appName').textContent=localStorage.getItem('appName')||'SHAMIM PRO';
+document.getElementById('appLogo').textContent=localStorage.getItem('appLogo')||'◆';
+document.title=localStorage.getItem('appName')||'SHAMIM PRO';
+document.getElementById('nameInput').value=localStorage.getItem('appName')||'SHAMIM PRO';
+document.getElementById('logoInput').value=localStorage.getItem('appLogo')||'◆';
+render();
+if('serviceWorker' in navigator){
+navigator.serviceWorker.register('./sw.js').catch(()=>{});
+}
 </script>
-</body></html>
+</body>
+</html>
