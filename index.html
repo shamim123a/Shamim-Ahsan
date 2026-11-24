@@ -1,80 +1,276 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Binance Style Pro — Virtual Trading Simulator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0e11">
+<title>SHAMIM PRO</title>
+<link rel="manifest" href="./manifest.json">
 <style>
-:root{--bg:#0b0e11;--panel:#181a20;--panel2:#20242b;--line:#2b3139;--text:#eaecef;--muted:#848e9c;--yellow:#f0b90b;--green:#0ecb81;--red:#f6465d}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Arial,Helvetica,sans-serif}
-header{height:66px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 5%;gap:16px}
-.brand{font-weight:800;font-size:20px;letter-spacing:.3px}.brand span{color:var(--yellow)}.tag{font-size:10px;color:var(--yellow);border:1px solid #66500c;padding:3px 7px;border-radius:4px;margin-left:8px}
-nav{display:flex;gap:22px;color:var(--muted)}nav b{color:var(--yellow)}
-main{max-width:1180px;margin:28px auto;padding:0 18px}.notice{background:#282314;border:1px solid #594714;color:#e8c75a;border-radius:8px;padding:11px 14px;margin-bottom:20px;font-size:12px}
-h1{font-size:25px;margin:0 0 5px}.sub{color:var(--muted);margin-bottom:22px}
-.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
-.label{color:var(--muted);font-size:12px}.balance{font-size:32px;font-weight:700;margin:7px 0}.positive{color:var(--green)}.negative{color:var(--red)}
-.actions{display:flex;gap:10px;margin-top:16px}.btn{border:0;border-radius:6px;padding:11px 20px;font-weight:700;cursor:pointer}.buy{background:var(--green);color:#07150f}.sell{background:var(--red);color:white}.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
-.section-title{font-size:17px;margin:0 0 15px}.market{margin-top:18px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:570px}th,td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:500;font-size:12px}td:last-child,th:last-child{text-align:right}.coin{font-weight:700}.symbol{color:var(--muted);font-size:12px;margin-left:7px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}input,select{width:100%;padding:11px;border:1px solid var(--line);border-radius:6px;background:#0b0e11;color:var(--text);outline:none}input:focus,select:focus{border-color:var(--yellow)}
-.small{color:var(--muted);font-size:12px}.wallet-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line)}.wallet-row:last-child{border:0}
-footer{text-align:center;color:var(--muted);font-size:11px;padding:28px 10px}
-@media(max-width:760px){header{padding:0 16px}nav{display:none}.grid{grid-template-columns:1fr}.balance{font-size:27px}.card{padding:16px}}
+*{box-sizing:border-box}
+body{margin:0;background:#0b0e11;color:#fff;font-family:Arial,sans-serif;padding-bottom:75px}
+header{height:65px;background:#181a20;display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:5}
+.logo{color:#f0b90b;font-weight:bold;font-size:22px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#181a20;display:flex;justify-content:space-around;padding:9px 2px;z-index:10;border-top:1px solid #30343b}
+nav button{background:none;color:#929aa5;padding:7px 3px;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:5px}
+nav button.active{color:#f0b90b}
+nav span{font-size:19px}
+main{padding:15px}
+.page{display:none}
+.page.active{display:block}
+.card{background:#181a20;padding:17px;border-radius:12px;margin-bottom:14px}
+h2{font-size:19px;margin:5px 0 17px}
+h3{font-size:15px}
+.muted{color:#929aa5;font-size:13px}
+.balance{font-size:29px;font-weight:bold;margin:12px 0}
+button.primary{background:#f0b90b;color:#111;border:0;border-radius:7px;padding:13px;font-weight:bold;width:100%;margin-top:10px}
+input,select{width:100%;padding:13px;margin:7px 0 13px;background:#262a33;color:white;border:1px solid #454a55;border-radius:7px}
+.coin{display:flex;align-items:center;justify-content:space-between;padding:15px 0;border-bottom:1px solid #30343b}
+.green{color:#0ecb81}
+.red{color:#f6465d}
+.action{display:flex;gap:10px}
+.action button{flex:1}
+.smallbtn{background:#30343b;color:white;border:0;border-radius:6px;padding:8px}
 </style>
 </head>
 <body>
+
 <header>
-  <div><span class="brand">BINANCE <span>STYLE PRO</span></span><span class="tag">SIMULATOR</span></div>
-  <nav><b>Dashboard</b><span>Markets</span><span>Trade</span><span>Wallet</span></nav>
+<div class="logo" id="brand">SHAMIM PRO</div>
+<div id="brandLogo" style="color:#f0b90b;font-size:25px">◆</div>
 </header>
+
 <main>
-  <div class="notice"><strong>SIMULATOR ONLY:</strong> This is an independent practice app. It is not Binance, is not affiliated with Binance, and does not connect to real markets, wallets, or payments. All funds and trades are virtual.</div>
-  <h1>Dashboard</h1><div class="sub">Practice trading with virtual funds.</div>
-  <div class="grid">
-    <section class="card">
-      <div class="label">Estimated virtual balance</div>
-      <div class="balance" id="totalBalance">$10,000.00</div>
-      <div class="small">Virtual USD balance and sample coin holdings</div>
-      <div class="actions"><button class="btn buy" onclick="setSide('buy')">Buy</button><button class="btn sell" onclick="setSide('sell')">Sell</button></div>
-      <div style="margin-top:22px">
-        <h2 class="section-title">Virtual wallet</h2>
-        <div id="wallet"></div>
-      </div>
-    </section>
-    <section class="card" id="trade">
-      <h2 class="section-title">Place a practice order</h2>
-      <div class="form-row"><div><label>Order type</label><select id="side"><option value="buy">Buy</option><option value="sell">Sell</option></select></div><div><label>Asset</label><select id="asset"><option value="BTC">Bitcoin (BTC)</option><option value="ETH">Ethereum (ETH)</option><option value="BNB">BNB</option><option value="SOL">Solana (SOL)</option><option value="XRP">XRP</option></select></div></div>
-      <div><label>Amount in USD</label><input id="amount" type="number" min="1" step="0.01" placeholder="e.g. 100"></div>
-      <p class="small" id="estimate">Enter an amount to see the estimated coin quantity.</p>
-      <button class="btn buy" style="width:100%;margin-top:8px" onclick="trade()">Confirm virtual trade</button>
-      <p class="small" id="message" aria-live="polite"></p>
-    </section>
-  </div>
-  <section class="card market">
-    <h2 class="section-title">Markets <span class="small">— sample prices, manually editable in code</span></h2>
-    <div class="table-wrap"><table><thead><tr><th>Asset</th><th>Last price</th><th>24h change</th><th>Virtual holding</th></tr></thead><tbody id="markets"></tbody></table></div>
-  </section>
-  <section class="card market">
-    <h2 class="section-title">Practice trade history</h2>
-    <div class="table-wrap"><table><thead><tr><th>Time</th><th>Side</th><th>Asset</th><th>USD value</th><th>Quantity</th></tr></thead><tbody id="history"><tr><td colspan="5" class="small">No practice trades yet.</td></tr></tbody></table></div>
-  </section>
+
+<section id="home" class="page active">
+<h2>Overview</h2>
+<div class="card">
+<div class="muted">Estimated Total Balance</div>
+<div class="balance" id="homeBalance">$10,000.00</div>
+<div class="green">Personal account simulator</div>
+</div>
+<div class="action">
+<button class="primary" onclick="openPage('trade')">Buy</button>
+<button class="primary" onclick="openPage('wallet')">Wallet</button>
+</div>
+<div class="card" style="margin-top:15px">
+<h3>My Assets</h3>
+<div id="homeAssets"></div>
+</div>
+</section>
+
+<section id="markets" class="page">
+<h2>Markets</h2>
+<div class="card">
+<div id="marketAssets"></div>
+</div>
+</section>
+
+<section id="trade" class="page">
+<h2>Trade Simulator</h2>
+<div class="card">
+<label>Trading Pair</label>
+<select id="tradePair"></select>
+<label>Order Type</label>
+<select id="tradeType">
+<option value="buy">Buy</option>
+<option value="sell">Sell</option>
+</select>
+<label>Amount (USD)</label>
+<input id="tradeAmount" type="number" placeholder="Enter amount">
+<button class="primary" onclick="executeTrade()">Confirm Trade</button>
+<p class="muted">This is a simulated trade, not a real exchange order.</p>
+</div>
+<div class="card">
+<h3>Trade History</h3>
+<div id="history"></div>
+</div>
+</section>
+
+<section id="wallet" class="page">
+<h2>My Wallet</h2>
+<div class="card">
+<div class="muted">Total Balance</div>
+<div class="balance" id="walletBalance">$10,000.00</div>
+<h3>Edit Simulator Balance</h3>
+<input type="number" id="editBalance" placeholder="New balance">
+<button class="primary" onclick="updateBalance()">Update Balance</button>
+</div>
+<div class="card">
+<h3>Wallet Assets</h3>
+<div id="walletAssets"></div>
+</div>
+</section>
+
+<section id="settings" class="page">
+<h2>Settings</h2>
+<div class="card">
+<h3>App Branding</h3>
+<label>App Name</label>
+<input id="editName" placeholder="App Name">
+<label>App Logo</label>
+<input id="editLogo" placeholder="Logo or Emoji">
+<button class="primary" onclick="saveBrand()">Save Name & Logo</button>
+</div>
+<div class="card">
+<h3>Add or Edit Market Coin</h3>
+<label>Coin Symbol</label>
+<input id="newCoin" placeholder="BTC">
+<label>Price (USD)</label>
+<input id="newPrice" type="number" placeholder="95000">
+<button class="primary" onclick="saveCoin()">Save Coin</button>
+<div id="coinSettings"></div>
+</div>
+<div class="card">
+<h3>Profile</h3>
+<input id="profileName" placeholder="Your Name">
+<input id="profileEmail" placeholder="Your Email">
+<button class="primary" onclick="saveProfile()">Save Profile</button>
+<p id="profileStatus" class="muted"></p>
+</div>
+</section>
+
 </main>
-<footer>Independent virtual trading practice page • No real orders, deposits, withdrawals, or live prices.</footer>
+
+<nav>
+<button class="active" data-page="home" onclick="openPage('home')"><span>⌂</span>Home</button>
+<button data-page="markets" onclick="openPage('markets')"><span>▥</span>Markets</button>
+<button data-page="trade" onclick="openPage('trade')"><span>⇄</span>Trade</button>
+<button data-page="wallet" onclick="openPage('wallet')"><span>▣</span>Wallet</button>
+<button data-page="settings" onclick="openPage('settings')"><span>⚙️</span>Settings</button>
+</nav>
+
 <script>
-// EDIT SAMPLE PRICES HERE. These are fictional/demo values, not live market prices.
-const assets = {
- BTC:{name:"Bitcoin",price:68000,change:1.42,holding:0.05},
- ETH:{name:"Ethereum",price:3500,change:0.86,holding:0.5},
- BNB:{name:"BNB",price:590,change:-0.34,holding:2},
- SOL:{name:"Solana",price:165,change:2.15,holding:3},
- XRP:{name:"XRP",price:0.62,change:-1.12,holding:100}
-};
-// EDIT STARTING VIRTUAL USD BALANCE HERE.
-let usdBalance = 2500;
-let history = [];
-const money = n => "$"+Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
-function total(){return usdBalance+Object.values(assets).reduce((s,a)=>s+a.price*a.holding,0)}
+const defaultCoins=[
+{name:'BTC',price:95000},
+{name:'ETH',price:3200},
+{name:'BNB',price:600},
+{name:'SOL',price:180}
+];
+
+let balance=Number(localStorage.getItem('sp_balance')||10000);
+let coins=JSON.parse(localStorage.getItem('sp_coins')||JSON.stringify(defaultCoins));
+let history=JSON.parse(localStorage.getItem('sp_history')||'[]');
+
+function openPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('nav button').forEach(b=>{
+b.classList.toggle('active',b.dataset.page===id);
+});
+render();
+window.scrollTo(0,0);
+}
+
+function money(n){
+return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+function safe(s){
+return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function saveData(){
+localStorage.setItem('sp_balance',balance);
+localStorage.setItem('sp_coins',JSON.stringify(coins));
+localStorage.setItem('sp_history',JSON.stringify(history));
+}
+
 function render(){
- document.getElementById("totalBalance").textContent=money(total());
- document.getElementById("wallet").innerHTML=<div class="wallet-row"><span>USD</span><strong>${money(usdBalance)}</strong></div>+Object.entries(assets).map(([k,a])=><div class="wallet-row"><span>${k}</span><strong>${a.holding.toFixed(6)} <span class="small">(${money(a.holding*a.price)})</span></strong></div>).join("");
- document.getElementById("markets").innerHTML=Object.entries(assets).map(([k,a])…
+document.getElementById('homeBalance').textContent=money(balance);
+document.getElementById('walletBalance').textContent=money(balance);
+document.getElementById('editBalance').value=balance;
+
+let rows=coins.map(c=>
+'<div class="coin"><b>'+safe(c.name)+'</b><span>'+money(c.price)+'</span></div>'
+).join('');
+
+document.getElementById('homeAssets').innerHTML=rows;
+document.getElementById('marketAssets').innerHTML=rows;
+document.getElementById('walletAssets').innerHTML=rows;
+document.getElementById('coinSettings').innerHTML=rows;
+
+document.getElementById('tradePair').innerHTML=coins.map(c=>
+'<option value="'+safe(c.name)+'">'+safe(c.name)+'/USDT</option>'
+).join('');
+
+document.getElementById('history').innerHTML=history.length?
+history.map(h=>'<div class="coin"><span>'+safe(h.type)+' '+safe(h.coin)+'</span><b>'+money(h.amount)+'</b></div>').join(''):
+'<p class="muted">No simulated trades yet.</p>';
+}
+
+function updateBalance(){
+let n=Number(document.getElementById('editBalance').value);
+if(!Number.isFinite(n)||n<0)return alert('Enter a valid balance');
+balance=n;
+saveData();
+render();
+alert('Balance updated');
+}
+
+function saveCoin(){
+let name=document.getElementById('newCoin').value.trim().toUpperCase();
+let price=Number(document.getElementById('newPrice').value);
+if(!name||!Number.isFinite(price)||price<=0)return alert('Enter valid coin details');
+let old=coins.find(c=>c.name===name);
+if(old)old.price=price;
+else coins.push({name,price});
+saveData();
+render();
+document.getElementById('newCoin').value='';
+document.getElementById('newPrice').value='';
+alert('Coin saved');
+}
+
+function executeTrade(){
+let name=document.getElementById('tradePair').value;
+let type=document.getElementById('tradeType').value;
+let amount=Number(document.getElementById('tradeAmount').value);
+if(!name||!Number.isFinite(amount)||amount<=0)return alert('Enter a valid amount');
+if(type==='buy'&&amount>balance)return alert('Insufficient simulator balance');
+if(type==='buy')balance-=amount;
+else balance+=amount;
+history.unshift({coin:name,type:type.toUpperCase(),amount:amount});
+saveData();
+render();
+document.getElementById('tradeAmount').value='';
+alert('Simulated trade saved');
+}
+
+function saveBrand(){
+let name=document.getElementById('editName').value.trim();
+let logo=document.getElementById('editLogo').value.trim();
+if(name){
+localStorage.setItem('sp_name',name);
+document.title=name;
+document.getElementById('brand').textContent=name;
+}
+if(logo){
+localStorage.setItem('sp_logo',logo);
+document.getElementById('brandLogo').textContent=logo;
+}
+alert('Branding saved');
+}
+
+function saveProfile(){
+localStorage.setItem('sp_profile_name',document.getElementById('profileName').value);
+localStorage.setItem('sp_profile_email',document.getElementById('profileEmail').value);
+document.getElementById('profileStatus').textContent='Profile saved on this device.';
+}
+
+function start(){
+let name=localStorage.getItem('sp_name')||'SHAMIM PRO';
+let logo=localStorage.getItem('sp_logo')||'◆';
+document.getElementById('brand').textContent=name;
+document.getElementById('brandLogo').textContent=logo;
+document.title=name;
+document.getElementById('editName').value=name;
+document.getElementById('editLogo').value=logo;
+document.getElementById('profileName').value=localStorage.getItem('sp_profile_name')||'';
+document.getElementById('profileEmail').value=localStorage.getItem('sp_profile_email')||'';
+render();
+}
+start();
+</script>
+</body>
+</html>
