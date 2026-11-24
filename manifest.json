@@ -1,0 +1,13 @@
+{
+  "name": "Crypto Practice Pro",
+  "short_name": "Crypto Pro",
+  "description": "Independent virtual crypto trading practice simulator",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0e11",
+  "theme_color": "#0b0e11",
+  "icons": [
+    {"src": "./icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}
+  ]
+}
